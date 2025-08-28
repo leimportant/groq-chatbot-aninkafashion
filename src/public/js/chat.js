@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatBox = document.getElementById('chat-box');
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
+    
+    // Session ID to maintain conversation context
+    let sessionId = null;
 
     // Add a welcome message
     addBotMessage('Halo! Saya adalah asisten AI untuk Aninka Fashion. Ada yang bisa saya bantu?');
@@ -33,19 +36,26 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ message })
+            body: JSON.stringify({ message, sessionId })
         })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.text();
+            return response.json();
         })
         .then(data => {
             // Hide typing indicator
             hideTypingIndicator();
+            
+            // Store session ID for conversation context
+            if (data.sessionId) {
+                sessionId = data.sessionId;
+                console.log('Session ID:', sessionId);
+            }
+            
             // Add bot response to chat
-            addBotMessage(data);
+            addBotMessage(data.response);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -65,7 +75,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function addBotMessage(message) {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message bot-message';
-        messageDiv.textContent = message;
+        
+        // Check if the message contains markdown-like formatting
+        if (message.includes('**') || message.includes('\n')) {
+            // Simple markdown parsing for bold text and line breaks
+            const formattedMessage = message
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+            
+            messageDiv.innerHTML = formattedMessage;
+        } else {
+            messageDiv.textContent = message;
+        }
+        
         chatBox.appendChild(messageDiv);
         scrollToBottom();
     }
