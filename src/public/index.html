@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>Aninka Fashion Chat</title> -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Add Font Awesome for WhatsApp icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .user-panel {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 18px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .bot-message {
+            background-color: #e9ecef;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        #chat-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .loading p {
+            display: flex;
+        }
+
+        .loading p span {
+            animation: blink 1.4s infinite both;
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .loading p span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading p span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: .2;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: .2;
+            }
+        }
+
+        .bot-typing {
+            display: flex;
+            align-items: center;
+        }
+
+        .bot-typing .dot {
+            height: 8px;
+            width: 8px;
+            background-color: #999;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+            animation: typing 1.4s infinite both;
+        }
+
+        .bot-typing .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .bot-typing .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .bot-typing .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1);
+            }
+
+            80%,
+            100% {
+                transform: scale(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <!-- <h1>Aninka Virtual Assistant</h1> -->
+            <!-- <h2 class="subtitle">AI Chatbot Omnichannel berbasis LLaMA untuk Web & WhatsApp</h2> -->
+            <!-- <div class="whatsapp-header">
+                <a href="/redirect-whatsapp" class="whatsapp-icon-link" title="Chat via WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Chat Assistant via WhatsApp</span>
+                </a>
+            </div> -->
+        </header>
+
+        <div id="chat-container">
+            <div id="chat-box">
+                <!-- Messages will be inserted here by JavaScript -->
+                <!-- <div class="welcome-message">
+                    <p>Halo! Saya adalah asisten AI untuk platform Aninka Fashion. Ada yang bisa saya bantu?</p>
+                </div> -->
+            </div>
+
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Ketik pertanyaan tentang aninka fashion disini..."
+                    autocomplete="off" autofocus>
+                <button id="send-button">
+                    <span>Kirim</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Add JavaScript file -->
+    <script src="js/chat.js"></script>
+</body>
+
+</html>
